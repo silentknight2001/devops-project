@@ -25,7 +25,7 @@
           <manifest>
             <addClasspath>true</addClasspath>
             <classpathPrefix>lib/</classpathPrefix>
-            <mainClass>nayan.MyMainCalc</mainClass>
+            <mainClass>nayan.hello</mainClass>
           </manifest>
         </archive>
       </configuration>
