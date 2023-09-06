@@ -1,0 +1,31 @@
+pipeline{
+    agent any
+    tools{
+        maven 'MAVEN_HOME'
+    }
+    stage('stage1: clean stage'){
+        steps{
+            sh 'mvn clean'
+        }
+    }
+    stage('stage2: Test stage'){
+        steps{
+            sh 'mvn test'
+        }
+    }
+    stage('stage3: my package'){
+        steps{
+           sh 'mvn package'
+        }
+    }
+    stage('stage4: my final Build Success'){
+        steps{
+            echo 'nvm install'
+        }
+    }
+    stage('stage final: Build Success'){
+        steps{
+            echo 'Build Success'
+        }
+    }
+}
