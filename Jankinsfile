@@ -25,7 +25,7 @@ pipeline{
     }
     stage('stage final: Build Success'){
         steps{
-            echo 'Build Success'
+            echo 'Build Success final nayan'
         }
     }
 }
