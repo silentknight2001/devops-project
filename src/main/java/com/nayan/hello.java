@@ -1,18 +1,21 @@
 package com.nayan;
+
+import java.util.Scanner;
 public class hello {
     public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int a = 0;
+        int b = 1;
+        int count = 2;
 
-        greet();
-    }
-    static void greet(){
-        String hello = "hello this is our first pipeline about devops";
-        String him = "Hello world sir";
-        int a = 34;
-        int b = 34;
-        System.out.println(a+b);
-        System.out.println(hello);
-        System.out.print(him);
-
+        while (count <= n) {
+            int temp = b;
+            b = b + a;
+            a = temp;
+            count++;
+        }
+        System.out.println(b);
     }
 }
 
