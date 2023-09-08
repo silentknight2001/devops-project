@@ -1,4 +1,4 @@
-package com.nayan;
+package nayan;
 
 import java.util.Scanner;
 public class hello {
