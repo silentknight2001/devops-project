@@ -13,11 +13,16 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        stage('Docker Build') {
+        stage('Build') {
             steps {
                 script {
                     docker.build("nayan2001/pipe-jenkins:${TAG}")
                 }
+            }
+        }
+        stage('Test'){
+            steps {
+                echo 'Empty'
             }
         }
 	    stage('Pushing Docker Image to Dockerhub') {
@@ -28,13 +33,6 @@ pipeline {
                         docker.image("nayan2001/pipe-jenkins:${TAG}").push("latest")
                     }
                 }
-            }
-        }
-        stage('Deploy'){
-            steps {
-                sh "docker stop hello-world | true"
-                sh "docker rm hello-world | true"
-                sh "docker run --name hello-world -d -p 9004:8080 nayan2001/pipe-jenkins:${TAG}"
             }
         }
     }
