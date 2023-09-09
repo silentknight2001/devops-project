@@ -3,30 +3,38 @@ pipeline {
     tools {
         maven 'MAVEN_HOME'
     }
+    environment {
+        DATE = new Date().format('yy.M')
+        TAG = "${DATE}.${BUILD_NUMBER}"
+    }
     stages {
-        stage('Stage1: Clean Stage 1') {
+        stage ('Build') {
             steps {
-                sh 'mvn clean'
+                sh 'mvn clean package'
             }
         }
-        stage ('Stage 2: Test Stage') {
+        stage('Docker Build') {
             steps {
-                sh 'mvn test'
+                script {
+                    docker.build("nayan2001/pipe-jenkins:${TAG}")
+                }
             }
         }
-        stage ('Stage 3: My Package'){
+	    stage('Pushing Docker Image to Dockerhub') {
             steps {
-                sh 'mvn package'
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'nayan') {
+                        docker.image("nayan2001/pipe-jenkins:${TAG}").push()
+                        docker.image("nayan2001/pipe-jenkins:${TAG}").push("latest")
+                    }
+                }
             }
         }
-        stage ('Stage 4: My Final Build Stage'){
+        stage('Deploy'){
             steps {
-                sh 'mvn install'
-            }
-        }
-        stage ('Stage Final: Build Success'){
-            steps {
-                echo  'Build Success'
+                sh "docker stop hello-world | true"
+                sh "docker rm hello-world | true"
+                sh "docker run --name hello-world -d -p 9004:8080 nayan2001/pipe-jenkins:${TAG}"
             }
         }
     }
