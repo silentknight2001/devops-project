@@ -8,12 +8,12 @@ pipeline {
         TAG = "${DATE}.${BUILD_NUMBER}"
     }
     stages {
-        stage ('Build') {
+        stage ('Build na package') {
             steps {
                 sh 'mvn clean package'
             }
         }
-        stage('Build') {
+        stage('Build docker image') {
             steps {
                 script {
                     docker.build("nayan2001/pipe-jenkins:${TAG}")
