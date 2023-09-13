@@ -16,7 +16,7 @@ pipeline {
         stage('Build docker image') {
             steps {
                 script {
-                    docker.build("nayan2001/pipe-jenkins:${TAG}")
+                    docker.build("nayan2001/pipe:${TAG}")
                 }
             }
         }
@@ -29,8 +29,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'nayan') {
-                        docker.image("nayan2001/pipe-jenkins:${TAG}").push()
-                        docker.image("nayan2001/pipe-jenkins:${TAG}").push("latest")
+                        docker.image("nayan2001/pipe:${TAG}").push()
+                        docker.image("nayan2001/pipe:${TAG}").push("latest")
                     }
                 }
             }
