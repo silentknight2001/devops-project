@@ -14,7 +14,6 @@ public class hello {
             count++;
         }
         System.out.println(b);
-        System.out.println("hi nayan");
     }
 }
 
